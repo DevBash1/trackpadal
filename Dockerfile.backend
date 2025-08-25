@@ -1,0 +1,21 @@
+# Backend Dockerfile
+# Using Bun to match local dev (bun run api/app.js)
+FROM oven/bun:1.1.30-alpine
+
+WORKDIR /app
+
+# Install dependencies first for better layer caching
+COPY package*.json bun.lockb ./
+RUN bun install --frozen-lockfile
+
+# Copy the rest of the app
+COPY . .
+
+# Ensure backend working directory
+WORKDIR /app/api
+
+# Expose backend port
+EXPOSE 4000
+
+# Start the server
+CMD ["bun", "run", "app.js"]

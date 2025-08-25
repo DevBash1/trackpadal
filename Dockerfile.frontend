@@ -1,0 +1,26 @@
+# Frontend Dockerfile
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+# Install deps first for caching
+COPY package*.json .
+RUN npm install
+
+# Copy source and build
+COPY . .
+RUN npm run build
+
+# --- Runtime image ---
+FROM node:20-alpine AS runtime
+WORKDIR /app
+
+# Only copy what preview needs: node_modules for vite, and built dist
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/package*.json /app/
+COPY --from=build /app/dist /app/dist
+
+EXPOSE 5173
+
+# Serve the built app with vite preview on 0.0.0.0:5173
+CMD ["npx", "vite", "preview", "--host", "0.0.0.0", "--port", "5173"]

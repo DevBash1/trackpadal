@@ -1,0 +1,23 @@
+# Reduce build context
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store
+
+# Output folders
+/dist
+/build
+
+# VCS
+.git
+.gitignore
+
+# Local env files (compose will inject them at runtime)
+.env
+
+# OS/editor
+.DS_Store
+*.swp
+.vscode
+.idea

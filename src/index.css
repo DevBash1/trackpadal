@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --grad-1: #0b1220;
+  --grad-2: #0e1a31;
+  --grad-3: #0b1220;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+.bg-grid {
+  background-image:
+    radial-gradient(transparent 1px, rgba(255,255,255,0.05) 1px),
+    radial-gradient(transparent 1px, rgba(255,255,255,0.05) 1px);
+  background-size: 40px 40px, 80px 80px;
+  background-position: 0 0, 10px 10px;
+}
+
+.neon-gradient {
+  background: radial-gradient(1000px 600px at 20% 10%, rgba(0,229,255,0.25), transparent 50%),
+              radial-gradient(800px 500px at 80% 20%, rgba(255,0,234,0.2), transparent 50%),
+              linear-gradient(180deg, var(--grad-1), var(--grad-2), var(--grad-3));
+}
+
+.particles:before, .particles:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
+    radial-gradient(rgba(0,229,255,0.15) 1px, transparent 1px);
+  background-size: 3px 3px, 4px 4px;
+  background-position: 0 0, 20px 30px;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, black, transparent 70%);
+  opacity: 0.5;
+}
