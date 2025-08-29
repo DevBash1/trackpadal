@@ -9,16 +9,16 @@ const { EnSyncEngine } = require("ensync-client-sdk");
  * @param {import('socket.io').Server} io
  */
 async function initSocket(io) {
-    const gpsEventName = "trackpedal/gps";
-    const speedEventName = "trackpedal/speed";
-    const torchEventName = "trackpedal/torch";
-    const batteryEventName = "trackpedal/battery";
-    const batteryDistanceEventName = "trackpedal/battery_distance";
-    const tyrePressureEventName = "trackpedal/tyre_pressure";
+    const gpsEventName = "progomobility/bicycle/coordinates";
+    const speedEventName = "progomobility/bicycle/speed";
+    const torchEventName = "progomobility/bicycle/torch";
+    const batteryEventName = "progomobility/bicycle/battery";
+    const batteryDistanceEventName = "progomobility/bicycle/battery_distance";
+    const tyrePressureEventName = "progomobility/bicycle/tyre_pressure";
 
     const receiversId = [process.env.RECEIVER_IDENTIFICATION_NUMBER];
 
-    const ensyncClient = new EnSyncEngine("ws://localhost:8082", {
+    const ensyncClient = new EnSyncEngine(process.env.ENSYNC_ENGINE_URL, {
         accessKey: process.env.ENSYNC_CLIENT_ID,
     });
 
@@ -61,6 +61,7 @@ async function initSocket(io) {
                     });
                 }
             } catch (error) {
+                console.log(gpsEventName);
                 console.log(error);
             }
         });
@@ -80,6 +81,7 @@ async function initSocket(io) {
                     });
                 }
             } catch (error) {
+                console.log(speedEventName);
                 console.log(error);
             }
         });
@@ -99,6 +101,7 @@ async function initSocket(io) {
                     });
                 }
             } catch (error) {
+                console.log(torchEventName);
                 console.log(error);
             }
         });
@@ -119,6 +122,7 @@ async function initSocket(io) {
                     });
                 }
             } catch (error) {
+                console.log(batteryEventName);
                 console.log(error);
             }
         });
@@ -145,6 +149,7 @@ async function initSocket(io) {
                         );
                     }
                 } catch (error) {
+                    console.log(batteryDistanceEventName);
                     console.log(error);
                 }
             }
@@ -166,6 +171,7 @@ async function initSocket(io) {
                     });
                 }
             } catch (error) {
+                console.log(tyrePressureEventName);
                 console.log(error);
             }
         });

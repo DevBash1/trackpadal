@@ -30,29 +30,33 @@ const createIntegrator = async (plan, session) => {
             : process.env.PRO_PLAN_ENSYNC_INTEGRATION_KEY;
     const url = process.env.ENYNC_INTEGRATION_URL;
 
-    const result = await axios.post(
-        url,
-        {
-            appName: "TrackPedal",
-            appDescription: `TrackPedal ${
-                plan === "basic" ? "Basic" : "Pro"
-            } Plan`,
-            appIcon: "https://paydantic.io/Paydantic_Basic_Logo.svg",
-            appColor: "#ffde59",
-            metadata: {
-                session,
+    try {
+        const result = await axios.post(
+            url,
+            {
+                appName: "TrackPedal",
+                appDescription: `TrackPedal ${
+                    plan === "basic" ? "Basic" : "Pro"
+                } Plan`,
+                appIcon: "https://paydantic.io/Paydantic_Basic_Logo.svg",
+                appColor: "#ffde59",
+                metadata: {
+                    session,
+                },
             },
-        },
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${apikey}`,
-            },
-        }
-    );
-
-    const integratorUrl = `http://localhost:5173/manage-integration/${result.data.data.id}`;
-    return integratorUrl;
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${apikey}`,
+                },
+            }
+        );
+    
+        const integratorUrl = `${process.env.ENSYNC_EMBED_URL}/${result.data.data.id}`;
+        return integratorUrl;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const sessions = new Map();

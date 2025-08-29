@@ -963,12 +963,12 @@ export default function App() {
                             </div>
                         </>
                     ) : (
-                        <div className="rounded-lg overflow-hidden border border-white/10">
+                        <div className="rounded-lg overflow-hidden border border-white/10 w-full">
                             <iframe
                                 title="EnSync Connect"
                                 src={ensyncUrl}
                                 className="w-full"
-                                style={{ height: 520 }}
+                                style={{ height: 520}}
                             />
                         </div>
                     )}
